@@ -8,8 +8,72 @@ body {
     font-family: "Smythe", serif;
 }
 
+h1 {
+    font-size: 2.5rem;
+}
+
+h2 {
+    font-size: 1.75rem;
+}
+
+h1, h2 {
+    font-weight: 400;
+}
+
+p {
+    font-size: 1.25rem;
+}
+
 .container {
-    max-width: 480px;
+    max-width: 600px;
     margin: 0 auto;
     border: 1px solid black;
+}
+
+header {
+    background-image: url("./images/header-img.png");
+    background-size: cover;
+    height: 170px;
+    color: white;
+    padding: 2em;
+}
+
+main {
+    padding: 2em;
+}
+
+.menu-item {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid #d2d2d2;
+    padding: 2em 0;
+}
+
+.menu-item-left {
+    display: flex;
+    align-items: center;
+    gap: 1.5em;
+}
+
+.menu-item-ingredients {
+    font-size: 1rem;
+    color: #8b8b8b;
+    margin-bottom: 1em;
+}
+
+.menu-add-btn {
+    width: 50px;
+    height: 50px;
+    align-self: center;
+    border: 1px solid #dedede;
+    border-radius: 50%;
+    font-size: 2rem;
+    font-weight: 100;
+    color: #3c3c3c;
+    background-color: white;
+}
+
+.menu-add-btn:hover,
+.menu-add-btn:focus {
+    cursor: pointer;
 }

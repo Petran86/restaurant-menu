@@ -1,79 +1,120 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: "Smythe", serif;
+  font-family: "Smythe", serif;
 }
 
 h1 {
-    font-size: 2.5rem;
+  font-size: 2.5rem;
 }
 
 h2 {
-    font-size: 1.75rem;
+  font-size: 1.75rem;
 }
 
-h1, h2 {
-    font-weight: 400;
+h1,
+h2 {
+  font-weight: 400;
 }
 
 p {
-    font-size: 1.25rem;
+  font-size: 1.25rem;
 }
 
 .container {
-    max-width: 600px;
-    margin: 0 auto;
-    border: 1px solid black;
+  max-width: 600px;
+  margin: 0 auto;
+  border: 1px solid black;
 }
 
 header {
-    background-image: url("./images/header-img.png");
-    background-size: cover;
-    height: 170px;
-    color: white;
-    padding: 2em;
+  background-image: url("./images/header-img.png");
+  background-size: cover;
+  height: 170px;
+  color: white;
+  padding: 2em;
 }
 
 main {
-    padding: 2em;
+  padding: 2em;
 }
 
 .menu-item {
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 2px solid #d2d2d2;
-    padding: 2em 0;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 2px solid #d2d2d2;
+  padding: 2em 0;
 }
 
 .menu-item-left {
-    display: flex;
-    align-items: center;
-    gap: 1.5em;
+  display: flex;
+  align-items: center;
+  gap: 1.5em;
 }
 
 .menu-item-ingredients {
-    font-size: 1rem;
-    color: #8b8b8b;
-    margin-bottom: 1em;
+  font-size: 1rem;
+  color: #8b8b8b;
+  margin-bottom: 1em;
 }
 
 .menu-add-btn {
-    width: 50px;
-    height: 50px;
-    align-self: center;
-    border: 1px solid #dedede;
-    border-radius: 50%;
-    font-size: 2rem;
-    font-weight: 100;
-    color: #3c3c3c;
-    background-color: white;
+  width: 50px;
+  height: 50px;
+  align-self: center;
+  border: 1px solid #dedede;
+  border-radius: 50%;
+  font-size: 2rem;
+  font-weight: 100;
+  color: #3c3c3c;
+  background-color: white;
 }
 
 .menu-add-btn:hover,
 .menu-add-btn:focus {
-    cursor: pointer;
+  cursor: pointer;
+}
+
+.order-title {
+  text-align: center;
+}
+
+.order-items {
+  border-bottom: 2px solid #393333;
+  padding: 1em 0;
+}
+
+ul {
+  list-style: none;
+  font-size: 1.75rem;
+}
+
+.order-total {
+  margin-top: 0.5em;
+}
+
+.price {
+  float: right;
+  font-size: 1.25rem;
+}
+
+.order-btn {
+  width: 100%;
+  margin-top: 2em;
+  padding: 1em;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: 700;
+  color: #fff;
+  background-color: #16db99;
+  border: 2px solid #16db99;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
 }

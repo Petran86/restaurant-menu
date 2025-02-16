@@ -25,6 +25,11 @@ p {
   font-size: 1.25rem;
 }
 
+button {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  cursor: pointer;
+}
+
 .container {
   max-width: 600px;
   margin: 0 auto;
@@ -93,6 +98,14 @@ ul {
   font-size: 1.75rem;
 }
 
+.remove {
+  border: none;
+  color: #bbbbbb;
+  background-color: white;
+  font-size: 0.75rem;
+  margin-left: 1em;
+}
+
 .order-total {
   margin-top: 0.5em;
 }
@@ -102,17 +115,56 @@ ul {
   font-size: 1.25rem;
 }
 
-.order-btn {
+.order-btn,
+.pay-btn {
   width: 100%;
   margin-top: 2em;
   padding: 1em;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-weight: 700;
   color: #fff;
   background-color: #16db99;
   border: 2px solid #16db99;
   border-radius: 4px;
-  cursor: pointer;
+}
+
+.modal {
+  max-width: 525px;
+  padding: 1em;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: whitesmoke;
+  border: 2px solid #757575;
+  border-radius: 4px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.pay-header {
+  text-align: center;
+  margin-bottom: 1em;
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-shadow: 0 2px #757575;
+}
+
+input {
+  margin: 0.5em 0;
+  padding: 1em;
+  font-size: 1.25rem;
+  color: #757575;
+  border: 2px solid #757575;
+  border-radius: 4px;
+}
+
+.pay-btn {
+  font-size: 1.25rem;
+  text-shadow: 0 0 5px #757575;
 }
 
 .hidden {

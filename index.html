@@ -30,7 +30,33 @@
           </h2>
           <button class="order-btn">Complete order</button>
         </section>
-        <div class="modal"></div>
+        <div class="modal">
+          <form action="">
+            <h2 class="pay-header">Enter card details</h2>
+            <input
+              type="text"
+              name="fullName"
+              id="fullName"
+              placeholder="Enter your name"
+              required
+            />
+            <input
+              type="text"
+              name="cardNumber"
+              id="cardNumber"
+              placeholder="Enter card number"
+              required
+            />
+            <input
+              type="text"
+              name="cardCVV"
+              id="cardCVV"
+              placeholder="Enter CVV"
+              required
+            />
+            <button class="pay-btn" id="pay-btn">Pay</button>
+          </form>
+        </div>
       </main>
     </div>
     <script src="index.js" type="module"></script>

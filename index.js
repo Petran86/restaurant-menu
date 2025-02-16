@@ -1,6 +1,8 @@
-import { menuData } from "./data.js";
+import { menuData } from "./data.js"
+import { v4 as uuidv4 } from 'https://jspm.dev/uuid'
 
 let totalPrice = 0
+let orderArr = []
 
 document.addEventListener("click", e => {
   if(e.target.dataset.pizza) {
@@ -12,38 +14,66 @@ document.addEventListener("click", e => {
   else if(e.target.dataset.beer) {
     handleBeerClick(e.target.dataset.beer)
   }
+  else if(e.target.dataset.remove) {
+    handleRemoveItem(e.target.dataset.remove)
+  }
 })
 
 function handlePizzaClick(menuId) {
   const targetMenuObj = menuData.filter(menu => {
     return menu.id === menuId
   })[0]
-  renderOrder(targetMenuObj)
+  orderArr.push({
+    ...targetMenuObj,
+    id: uuidv4()
+  })
+  renderOrder(orderArr)
 }
 
 function handleBurgerClick(menuId) {
   const targetMenuObj = menuData.filter(menu => {
     return menu.id === menuId
   })[0]
-  renderOrder(targetMenuObj)
+  orderArr.push({
+    ...targetMenuObj,
+    id: uuidv4()
+  })
+  renderOrder(orderArr)
 }
 
 function handleBeerClick(menuId) {
   const targetMenuObj = menuData.filter(menu => {
     return menu.id === menuId
   })[0]
-  renderOrder(targetMenuObj)
+  orderArr.push({
+    ...targetMenuObj,
+    id: uuidv4()
+  })
+  renderOrder(orderArr)
 }
 
-function renderOrder(orderObj) {
-    document.getElementById("order-items").innerHTML += `
+function renderOrder(orderArr) {
+  let orderHTML = ""
+  orderArr.forEach(order => {
+    orderHTML += `
       <ul>
-        <li>${orderObj.name} <span class="price">$${orderObj.price}</span></li>
+        <li>${order.name} 
+          <button class="remove" id="remove" data-remove="${order.id}">remove</button> 
+          <span class="price">$${order.price}</span>
+        </li>
       </ul>
     `
-  totalPrice += orderObj.price
+  totalPrice += order.price
+  })
+  document.getElementById("order-items").innerHTML = orderHTML
   document.getElementById("total-price").textContent = `$${totalPrice}`
   document.getElementById("order").classList.remove("hidden")
+}
+
+function handleRemoveItem(itemId) {
+  orderArr = orderArr.filter(item => itemId != item.id)
+  totalPrice = 0
+  renderOrder(orderArr)
 }
 
 function getMenu() {

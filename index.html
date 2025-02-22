@@ -1,64 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="index.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Smythe&display=swap"
-      rel="stylesheet"
-    />
-    <title>Mobile Restaurant Menu</title>
-  </head>
-  <body>
-    <div class="container">
-      <header>
-        <h1>Jimmy's Diner</h1>
-        <p>The best burgers and pizzas in town</p>
-      </header>
-      <main>
-        <section class="menu">
-          <div class="menu-items" id="menu-items"></div>
-        </section>
-        <section class="order hidden" id="order">
-          <h2 class="order-title">Your order</h2>
-          <div class="order-items" id="order-items"></div>
-          <h2 class="order-total">
-            Total price: <span class="price" id="total-price"></span>
-          </h2>
-          <button class="order-btn">Complete order</button>
-        </section>
-        <div class="modal">
-          <form action="">
-            <h2 class="pay-header">Enter card details</h2>
-            <input
-              type="text"
-              name="fullName"
-              id="fullName"
-              placeholder="Enter your name"
-              required
-            />
-            <input
-              type="text"
-              name="cardNumber"
-              id="cardNumber"
-              placeholder="Enter card number"
-              required
-            />
-            <input
-              type="text"
-              name="cardCVV"
-              id="cardCVV"
-              placeholder="Enter CVV"
-              required
-            />
-            <button class="pay-btn" id="pay-btn">Pay</button>
-          </form>
-        </div>
-      </main>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="index.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Smythe&display=swap" rel="stylesheet" />
+  <title>Mobile Restaurant Menu</title>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h1>Jimmy's Diner</h1>
+      <p>The best burgers and pizzas in town</p>
+    </header>
+    <main>
+      <section class="menu" id="menu">
+        <div class="menu-items" id="menu-items"></div>
+      </section>
+      <section class="order hidden" id="order">
+        <h2 class="order-title">Your order</h2>
+        <div class="order-items" id="order-items"></div>
+        <h2 class="order-total">
+          Total price: <span class="price" id="total-price"></span>
+        </h2>
+        <button class="order-btn" id="order-btn">Complete order</button>
+      </section>
+    </main>
+    <div class="modal hidden" id="modal">
+      <form action="">
+        <h2 class="pay-header">Enter card details</h2>
+        <input type="text" name="fullName" id="fullName" placeholder="Enter your name" required />
+        <input type="text" name="cardNumber" id="cardNumber" placeholder="Enter card number" maxlength="19" required />
+        <input type="text" name="cardCVV" id="cardCVV" placeholder="Enter CVV" maxlength="4" required />
+        <button class="pay-btn" id="pay-btn">Pay</button>
+      </form>
     </div>
-    <script src="index.js" type="module"></script>
-  </body>
+  </div>
+  <script src="index.js" type="module"></script>
+</body>
+
 </html>

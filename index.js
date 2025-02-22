@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'https://jspm.dev/uuid'
 
 let totalPrice = 0
 let orderArr = []
+let fullName = ""
 
 document.addEventListener("click", e => {
   if(e.target.dataset.pizza) {
@@ -17,6 +18,24 @@ document.addEventListener("click", e => {
   else if(e.target.dataset.remove) {
     handleRemoveItem(e.target.dataset.remove)
   }
+  else if(e.target.id === "order-btn") {
+    handleCompleteOrder()
+  }
+})
+
+document.getElementById("fullName").addEventListener("input", e => {
+  e.target.value = e.target.value.replace(/[^a-zA-Z\s]/g, '') // Allow only letters and spaces
+  fullName = e.target.value
+})
+
+document.getElementById("cardNumber").addEventListener("input", e => {
+  let cardNumber = e.target.value.replace(/\D/g, '') // Remove non-numeric characters
+  cardNumber = cardNumber.replace(/(\d{4})/g, '$1 ').trim() // Add space every 4 digits
+  e.target.value = cardNumber
+})
+
+document.getElementById("cardCVV").addEventListener("input", e => {
+  e.target.value = e.target.value.replace(/\D/g, '').slice(0, 4); // Allow only numbers, max 4 digits
 })
 
 function handlePizzaClick(menuId) {
@@ -74,6 +93,12 @@ function handleRemoveItem(itemId) {
   orderArr = orderArr.filter(item => itemId != item.id)
   totalPrice = 0
   renderOrder(orderArr)
+}
+
+function handleCompleteOrder() {
+  document.getElementById("modal").classList.remove("hidden")
+  document.getElementById("menu-items").disabled = true
+  document.getElementById("order-btn").disabled = true
 }
 
 function getMenu() {

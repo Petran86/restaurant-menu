@@ -1,24 +1,11 @@
 import { menuData } from "./data.js"
 import { v4 as uuidv4 } from 'https://jspm.dev/uuid'
 
-let totalPrice = 0
 let orderArr = []
 let fullName = ""
 
 document.addEventListener("click", e => {
-  if(e.target.dataset.pizza) {
-    handlePizzaClick(e.target.dataset.pizza)
-  }
-  else if(e.target.dataset.hamburger) {
-    handleBurgerClick(e.target.dataset.hamburger)
-  }
-  else if(e.target.dataset.beer) {
-    handleBeerClick(e.target.dataset.beer)
-  }
-  else if(e.target.dataset.remove) {
-    handleRemoveItem(e.target.dataset.remove)
-  }
-  else if(e.target.id === "order-btn") {
+  if(e.target.id === "order-btn") {
     handleCompleteOrder()
   }
 })
@@ -29,70 +16,76 @@ document.getElementById("fullName").addEventListener("input", e => {
 })
 
 document.getElementById("cardNumber").addEventListener("input", e => {
-  let cardNumber = e.target.value.replace(/\D/g, '') // Remove non-numeric characters
-  cardNumber = cardNumber.replace(/(\d{4})/g, '$1 ').trim() // Add space every 4 digits
-  e.target.value = cardNumber
+  e.target.value = e.target.value.replace(/\D/g, '') // Remove non-numeric characters
+  e.target.value = e.target.value.replace(/(\d{4})/g, '$1 ').trim() // Add space every 4 digits
+  let cardNumber = e.target.value
 })
 
 document.getElementById("cardCVV").addEventListener("input", e => {
   e.target.value = e.target.value.replace(/\D/g, '').slice(0, 4); // Allow only numbers, max 4 digits
 })
 
-function handlePizzaClick(menuId) {
-  const targetMenuObj = menuData.filter(menu => {
-    return menu.id === menuId
-  })[0]
-  orderArr.push({
-    ...targetMenuObj,
-    id: uuidv4()
-  })
+function handleAdddToOrder(event) {
+  const menuId = event.target.getAttribute("data-id")
+  const menuItem = menuData.find(item => item.id === menuId)
+
+  if(menuItem) {
+    const orderItem = orderArr.find(item => item.id === menuId)
+    if(orderItem) {
+      orderItem.quantity++
+    } else {
+      orderArr.push({...menuItem, quantity: 1})
+    }
+  }
   renderOrder(orderArr)
 }
 
-function handleBurgerClick(menuId) {
-  const targetMenuObj = menuData.filter(menu => {
-    return menu.id === menuId
-  })[0]
-  orderArr.push({
-    ...targetMenuObj,
-    id: uuidv4()
-  })
-  renderOrder(orderArr)
+function handleRemoveFromOrder(event) {
+  const menuId = event.target.getAttribute("data-id")
+  const itemIndex = orderArr.findIndex(item => item.id === menuId)
+
+  if(itemIndex !== -1) {
+    if(orderArr[itemIndex].quantity > 1) {
+      orderArr[itemIndex].quantity-- // Decrease quantity
+    } else {
+      orderArr.splice(itemIndex, 1) // Remove item if quantity is 1
+    }
+  }
+  renderOrder()
 }
 
-function handleBeerClick(menuId) {
-  const targetMenuObj = menuData.filter(menu => {
-    return menu.id === menuId
-  })[0]
-  orderArr.push({
-    ...targetMenuObj,
-    id: uuidv4()
-  })
-  renderOrder(orderArr)
-}
+function renderOrder() {
+  const orderList = document.getElementById("order-items")
+  const totalPriceEl = document.getElementById("total-price")
 
-function renderOrder(orderArr) {
+  if(orderArr.length === 0) {
+    orderList.innerHTML = `<p>Your order is empty</p>`
+    totalPriceEl.textContent = `$0`
+    document.getElementById("order-btn").disabled = true
+    return
+  }
+
   let orderHTML = ""
+  let totalPrice = 0
+
   orderArr.forEach(order => {
     orderHTML += `
       <ul>
-        <li>${order.name} 
-          <button class="remove" id="remove" data-remove="${order.id}">remove</button> 
-          <span class="price">$${order.price}</span>
+        <li>${order.name} (x${order.quantity})
+          <button class="remove" id="remove" data-id="${order.id}">remove</button> 
+          <span class="price">$${order.price * order.quantity}</span>
         </li>
       </ul>
     `
-  totalPrice += order.price
+  totalPrice += order.price * order.quantity
   })
-  document.getElementById("order-items").innerHTML = orderHTML
-  document.getElementById("total-price").textContent = `$${totalPrice}`
-  document.getElementById("order").classList.remove("hidden")
-}
 
-function handleRemoveItem(itemId) {
-  orderArr = orderArr.filter(item => itemId != item.id)
-  totalPrice = 0
-  renderOrder(orderArr)
+  orderList.innerHTML = orderHTML
+  totalPriceEl.textContent = `$${totalPrice}`
+  document.querySelectorAll(".remove").forEach(button => {
+    button.addEventListener("click", handleRemoveFromOrder)
+  })
+  document.getElementById("order").classList.remove("hidden")
 }
 
 function handleCompleteOrder() {
@@ -114,15 +107,19 @@ function getMenu() {
              <p class="menu-item-price">$${menu.price}</p>
             </div>
            </div>
-           <button class="menu-add-btn" aria-label="Add ${menu.name} to order" data-${menu.name}="${menu.id}">+</button>
+           <button class="menu-add-btn" aria-label="Add ${menu.name} to order" data-id="${menu.id}">+</button>
         </div>
     `
   })
   return menuHTML
 }
 
+/** Render menu and add click functionaality to add buttons */
 function renderMenu() {
   document.getElementById("menu-items").innerHTML = getMenu()
+  document.querySelectorAll(".menu-add-btn").forEach(button => {
+    button.addEventListener("click", handleAdddToOrder)
+})
 }
 
 renderMenu()

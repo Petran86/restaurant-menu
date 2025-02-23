@@ -1,5 +1,4 @@
 import { menuData } from "./data.js"
-import { v4 as uuidv4 } from 'https://jspm.dev/uuid'
 
 let orderArr = []
 let fullName = ""
@@ -8,6 +7,11 @@ document.addEventListener("click", e => {
   if(e.target.id === "order-btn") {
     handleCompleteOrder()
   }
+})
+
+document.addEventListener("submit", e => {
+  e.preventDefault()
+  handleCompletePayment()
 })
 
 document.getElementById("fullName").addEventListener("input", e => {
@@ -82,6 +86,7 @@ function renderOrder() {
 
   orderList.innerHTML = orderHTML
   totalPriceEl.textContent = `$${totalPrice}`
+  /** Click functionality to remove buttons */
   document.querySelectorAll(".remove").forEach(button => {
     button.addEventListener("click", handleRemoveFromOrder)
   })
@@ -90,8 +95,18 @@ function renderOrder() {
 
 function handleCompleteOrder() {
   document.getElementById("modal").classList.remove("hidden")
-  document.getElementById("menu-items").disabled = true
-  document.getElementById("order-btn").disabled = true
+  document.querySelectorAll("button").forEach(button => {
+    if(!button.classList.contains("pay-btn")) {
+      button.disabled = true
+    }
+  })
+}
+
+function handleCompletePayment() {
+  document.getElementById("modal").classList.add("hidden")
+  document.getElementById("order").classList.add("hidden")
+  document.getElementById("message").classList.remove("hidden")
+  document.getElementById("message-text").innerHTML = `<p>Thanks, ${fullName}! Your orderis on its way!</p>`
 }
 
 function getMenu() {
